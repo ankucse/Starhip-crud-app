@@ -3,15 +3,25 @@ spring:
     name: CRUD-App
   data:
     mongodb:
-      # Connection string to connect to MongoDB running locally at port 27018
-      # Unique Database Name for the Galactic Fleet domain
+      # Connection string to connect to MongoDB running locally at port 27017
       uri: mongodb://localhost:27017/nexus_galactic_fleet_db
+
+# Distributed deployment settings
+app:
+  instance:
+    # Use environment variable or command-line args, default to 'instance-1'
+    id: ${APP_INSTANCE_ID:instance-1}
+
+server:
+  # The application port. It can be overridden at startup. Defaults to 8080.
+  port: ${SERVER_PORT:8080}
 
 logging:
   level:
     root: INFO
     com.example.subbu: DEBUG
-    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
-
-server:
-  port: 8080
+    org.springframework.data.mongodb.core.MongoTemplate: INFO
+  
+  # Inject instance ID, correlationId, and Client IP into all log lines globally
+  pattern:
+    console: "[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] [%X{clientIp:-127.0.0.1}] [%X{correlationId:-N/A}] [%thread] [%logger{36}] [${app.instance.id}] : %msg%n"

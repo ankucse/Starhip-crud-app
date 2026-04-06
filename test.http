@@ -1,0 +1,33 @@
+### 1. Test Instance 1 (Port 8081)
+POST http://localhost:8081/api/starships
+Accept: application/json
+
+###
+
+### 2. Test Instance 2 (Port 8082)
+POST http://localhost:8082/api/starships
+Accept: application/json
+
+###
+
+### 3. Test Instance 3 (Port 8083)
+POST http://localhost:8083/api/starships
+Accept: application/json
+
+###
+
+### 4. Get All Starships from Instance 1
+GET http://localhost:8081/api/starships?page=0&size=5
+Accept: application/json
+
+###
+
+### 5. Get All Starships from Instance 2 (Shows the same DB data, but different servedBy instance)
+GET http://localhost:8082/api/starships?page=0&size=5
+Accept: application/json
+
+###
+
+### 6. Test Error Handling (Trigger a 404 on Instance 3)
+GET http://localhost:8083/api/starships/invalid-id-123
+Accept: application/json
