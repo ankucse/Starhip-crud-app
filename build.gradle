@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.2'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example.subbu'
+version = '0.0.1-SNAPSHOT'
+
+// We are configuring Java 21 (LTS).
+// Note: While Java 25 was preferred, it is currently an early-access/non-LTS version
+// and not fully supported by the stable releases of Spring Boot 3.x and Lombok. 
+// Thus, Java 21 is used as the reliable enterprise-level LTS fallback.
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Web for REST APIs
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    
+    // Spring Data MongoDB for DB access
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    
+    // Validation for DTOs
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    
+    // Lombok for boilerplate code
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // Developer tools (optional but recommended for local dev)
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    
+    // Testing
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

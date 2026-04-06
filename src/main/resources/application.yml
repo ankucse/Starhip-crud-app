@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: CRUD-App
+  data:
+    mongodb:
+      # Connection string to connect to MongoDB running locally at port 27018
+      # Unique Database Name for the Galactic Fleet domain
+      uri: mongodb://localhost:27017/nexus_galactic_fleet_db
+
+logging:
+  level:
+    root: INFO
+    com.example.subbu: DEBUG
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+
+server:
+  port: 8080
